@@ -20,7 +20,31 @@ export default class LoginScreen extends React.Component {
     Password : "",
   }
 
-  
+  LoginHandler =async () =>{
+    const url = "https://nedabackend.pythonanywhere.com/get_token/";
+    const options= {
+      mode:"cors",
+      method: 'POST',
+      body:JSON.stringify({
+        username:this.state.UserName,
+        password:this.state.Password
+      }),
+      
+      headers: {
+        "Content-type": "application/json"
+      }
+      }
+      let response = null
+      try{
+      response = await fetch(url,options)
+      }
+      catch(error){
+        console.log(error)
+      }
+      if (response.status >= 200 && response.status < 300){
+        this.props.navigation.navigate('Home',{param : response})
+    }
+  }
 
   render() {
     const{UserName,Password}=this.state
@@ -64,9 +88,10 @@ export default class LoginScreen extends React.Component {
             <TouchableOpacity 
               activeOpacity={.5}
               opacity={10000}
+              onPress={() => this.LoginHandler()}
             >
               <View style={styles.button}>
-                <Text style={styles.buttonText}>ورود</Text>
+                <Text style={styles.buttonText} onpress>ورود</Text>
               </View>
             </TouchableOpacity>
 
