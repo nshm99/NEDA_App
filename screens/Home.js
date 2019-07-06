@@ -1,6 +1,5 @@
 ﻿import React from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   Image,
@@ -14,7 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import BottomNavigation,{
     FullTab
 } from 'react-native-material-bottom-navigation';
-
+import HomeCss from "./home_style.js"
 const exit = require("./signup/BG2.jpg");
 
 class Home extends React.Component {
@@ -155,6 +154,67 @@ class Home extends React.Component {
         }
     ]
         };}
+      componentWillMount = async () => {
+        const url = "https://nedabackend.pythonanywhere.com/doctors/";
+        const options = {
+          mode : 'cors',
+          method : 'GET',
+          headers : {
+            'content-type' : 'application/json'
+          }
+        }
+        let response = null
+        try{
+          response =await fetch(url,options)
+          this.setState({doctors : JSON.parse(response["_bodyInit"])})
+        }
+        catch(error){
+          console.log(error)
+        }
+          
+      }
+      Filter = async (province,gender) => {
+        const url = "https://nedabackend.pythonanywhere.com/doctors/?gender=" + gender + "&user__province=" + province
+        const options = {
+          mode : 'cors',
+          method :'GET',
+          headers : {
+            'content-type' : 'application/json'
+          }   
+          
+        }
+        let response = null
+        try{
+          response =await fetch(url,options)
+          this.setState({doctors : JSON.parse(response["_bodyInit"])})
+        }
+        catch(error){
+          console.log(error)
+        }
+        console.log(response)
+        if (response.status >= 200 && response.status < 300){
+
+        }
+      } 
+      Search = async (FirstName) => {
+        const url = "https://nedabackend.pythonanywhere.com/doctors/?search=" + FirstName 
+        const options = {
+          mode : 'cors',
+          method :'GET',
+          headers : {
+            'content-type' : 'application/json'
+          }   
+          
+        }
+        let response = null
+        try{
+          response =await fetch(url,options)
+          this.setState({doctors : JSON.parse(response["_bodyInit"])})
+        }
+        catch(error){
+          console.log(error)
+        }
+      }
                 
       tabs = [
         {
@@ -192,40 +252,40 @@ class Home extends React.Component {
       )
       render() {
         const UserToken = this.props.navigation.getParam('param');
-        let docs;
-            let favorited, space;
-            let favToggle = "Favorite";
         return (
-          <ImageBackground source={require('./signup/BG2.jpg')} style={styles.container} blurRadius={1.5}>
-            <View style={styles.container}>
+          <ImageBackground source={require('./signup/BG2.jpg')} style={HomeCss.container} blurRadius={1.5}>
+            <View style={HomeCss.container}>
               <View style={{flexDirection:'row',marginLeft :"34.5%", marginTop :'5%'}}>
-                <TouchableOpacity style={styles.profileButton1}
+                <TouchableOpacity style={HomeCss.profileButton1}
                   onPress = {() => this.props.navigation.navigate('Login')}
                 >
-                  <View style={styles.footer}>
-                    <Text style={styles.profileButtonText}>
+                  <View style={HomeCss.footer}>
+                    <Text style={HomeCss.profileButtonText}>
                      خروج
                     </Text>
                   </View>
                 </TouchableOpacity>
               </View>
-              <View style={styles.searchBarContainer}>
+              <View style={HomeCss.searchBarContainer}>
                 <TextInput
                   value ={this.searchvalue}
-                  style={styles.searchBox}
+                  style={HomeCss.searchBox}
                   placeholder="Search doctor"
                   placeholderTextColor='gray'
                   onChangeText = {(name) => this.setState({searchvalue : name})}
                 />
                 </View>
-                <TouchableOpacity style={styles.exitButton}>
+                <TouchableOpacity style={HomeCss.exitButton}
+                  onPress = {() => this.componentWillMount()}
+                >
                   <Image 
                     source={exit} 
-                    style={styles.exitButtonIcon} 
+                    style={HomeCss.exitButtonIcon} 
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
-              <TouchableOpacity style = {styles.searchbutton}>
+              <TouchableOpacity style = {HomeCss.searchbutton}
+                onPress= {() => {this.Search(this.state.searchvalue)}}>
                 <Text style = {{textAlign : 'center'}}>
                   جستجو
                 </Text>
@@ -249,48 +309,45 @@ class Home extends React.Component {
                   <Picker.Item label="زن" value="زن" />
                   <Picker.Item label="مرد" value="مرد" />
               </Picker>
-              <TouchableOpacity 
-              style={{width:'30%',height:'5%',backgroundColor:'#90caf9',borderRadius:20,
-              marginTop:'5%',marginLeft:'35%'}}
-              >
-                <Text style={{textAlign:'center'}}>اعمال فیلتر ها</Text>
+              <TouchableOpacity style={{width:'30%',height:'5%',backgroundColor:'#90caf9',borderRadius:20,marginTop:'5%',marginLeft:'35%'}}
+              onPress ={() => {this.Filter(this.state.selectedProvince,this.state.gender)}}>
+                      <Text style={{textAlign:'center'}}>اعمال فیلتر ها</Text>
               </TouchableOpacity>
-              
-              <ScrollView style={styles.listingsContainer}>
+              <ScrollView style={HomeCss.listingsContainer}>
                 {this.state.doctors.map((item) => (
                   <TouchableOpacity
                     onPress = {() => this.props.navigation.navigate('DoctorProfile',{param1:item,param2:UserToken})}
                     key = {item.medical_system_number}
                     style={{paddingBottom : '1%',paddingTop :'1%'}}
                   >
-                    <View style={styles.listingView}>
-                      <View style={styles.left}>
-                        <Text style={styles.textBold}>
+                    <View style={HomeCss.listingView}>
+                      <View style={HomeCss.left}>
+                        <Text style={HomeCss.textBold}>
                           {item.user.first_name}
                         </Text>
                         <Text>
                           {item.bio}
                         </Text>
-                        <Text style={styles.text}>
+                        <Text style={HomeCss.text}>
                           {item.expertise}
                         </Text>
-                        <Text style={styles.text}>
+                        <Text style={HomeCss.text}>
                           {item.user.province}
                         </Text>
                               
                       </View>
-                      <View style={styles.right}>
-                        <Text style={styles.right}>
-                          <Icon style={styles.angle} name="angle-double-left" size={50} color="rgba(255, 255, 255, 0.8)" />
+                      <View style={HomeCss.right}>
+                        <Text style={HomeCss.right}>
+                          <Icon style={HomeCss.angle} name="angle-double-left" size={50} color="rgba(255, 255, 255, 0.8)" />
                         </Text>
                       </View>
-                      <Image source={{uri: item.picture}} style={styles.avatar}/>
+                      <Image source={{uri: item.picture}} style={HomeCss.avatar}/>
                     </View>
                   </TouchableOpacity> 
                 ))}
               </ScrollView>
               <BottomNavigation
-                style={styles.footer}
+                style={HomeCss.footer}
                 onTabPress = {newTab => this.props.navigation.navigate(newTab.key)}
                 renderTab={this.renderTab}
                 tabs={this.tabs}
@@ -300,5 +357,4 @@ class Home extends React.Component {
         );
       }
     }
-    
     export default Home;

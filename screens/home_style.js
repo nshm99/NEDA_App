@@ -1,4 +1,4 @@
-import React from 'react';
+import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
       container: {
         flex: 1,
@@ -11,11 +11,9 @@ export default StyleSheet.create({
         padding: 50,
         height: 40,
         width: 375,
-        // marginBott1om: 40,
         paddingBottom : '5%',
         alignItems: 'center',
         justifyContent:'center',
-        // flexDirection :'row',
       },
       searchBox: {
         height: 40,
