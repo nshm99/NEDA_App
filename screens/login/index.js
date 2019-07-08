@@ -5,7 +5,8 @@ import {
   Image,
   ImageBackground,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 
 import styles from './login.style';
@@ -41,10 +42,27 @@ export default class LoginScreen extends React.Component {
       catch(error){
         console.log(error)
       }
+      // console.log(response.status)
       if (response.status >= 200 && response.status < 300){
         this.props.navigation.navigate('Home',{param : response})
+    } else{
+        this.WrongPassUserAlert()
     }
   }
+  WrongPassUserAlert = () => {
+    Alert.alert(
+      'شناسه کاربری یا رمز عبور اشتباه است',
+      '',
+      [
+        {
+          text: 'باشه',
+          onPress: () => console.log('ok'),
+          style: 'ok',
+        },
+      ],
+      {cancelable: false},
+    );
+  } 
 
   render() {
     const{UserName,Password}=this.state
