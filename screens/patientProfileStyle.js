@@ -149,6 +149,10 @@ export default StyleSheet.create({
       marginTop:'12%'
       // fontFamily: 'Arial'
     },
+    cnacel:{
+      width:50,
+        height:50
+    },
     avatar: {
       width: 100,
       height: 100,
