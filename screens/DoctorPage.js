@@ -15,7 +15,10 @@ import {
   ActivityIndicator
 } from 'react-native';
 
+import Stars from 'react-native-stars';
 import CalendarPicker from 'react-native-calendar-picker';
+import { ThemeConsumer } from 'react-native-elements';
+
 const backIcon = require("./signup/back.png");
 const background = require("./signup/BG2.jpg");
 
@@ -34,6 +37,8 @@ export default class Profile extends Component {
       DoctorTime : [],
       PatientData : null,
       isloading : false,
+      stars :0,
+      patient :[],
       // selectedDate : null
     };
     this.onDateChange =this.onDateChange.bind(this);
@@ -175,6 +180,57 @@ export default class Profile extends Component {
       {cancelable: false},
     );
   }
+  Rate = async() =>{
+    const PatientData = this.props.navigation.getParam('param2');
+    const PatientToken = JSON.parse(PatientData["_bodyInit"]).token
+     fetch('http://nedabackend.pythonanywhere.com/patients/', {
+      mode: "cors",
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        "Authorization" : "Token " + PatientToken
+        
+      }
+    }).then(response => {
+      return response.json()
+    }).then(json => {
+      this.setState({
+        patient: json
+      });
+      }); 
+    const url = "https://nedabackend.pythonanywhere.com/doctor_rates/";
+    const docdata = this.props.navigation.getParam('param1');
+    console.log("+++++++++++++++++++++++++++++")
+    console.log(docdata.medical_system_number)
+    console.log("+++++++++++++++++++++++++++++")
+    const options= {
+      mode:"cors",
+      method: 'POST',
+      body:JSON.stringify({
+        dcotor : "ب967-22398",
+        //  docdata.medical_system_number,
+        patient : this.state.patient.social_number,
+        rate : this.state.stars,
+       
+      }),
+      
+      headers: {
+        "Content-type": "application/json",
+        "Authorization" : "Token " + PatientToken
+      }
+      }
+      let response = null
+      try{
+      response = await fetch(url,options)
+      console.log(response)
+      }
+      catch(error){
+        console.log(error)
+      }
+      if (response.status >= 200 && response.status < 300){
+        this.props.navigation.navigate('Home',{response})
+    } 
+  }
   render() {
     const doctorinfo = this.DoctorData
     let dateTime = []
@@ -184,6 +240,7 @@ export default class Profile extends Component {
             <View style={styles.header}>
             <TouchableOpacity style={styles.headerBackButtonView}
              onPress = {() => this.props.navigation.navigate('Home')}
+            // onPress ={() => this.Rate()}
              >
               <Image 
                 source={backIcon} 
@@ -199,6 +256,18 @@ export default class Profile extends Component {
                 <Text style={styles.name}>{doctorinfo.user.first_name} {doctorinfo.user.lastname}</Text>
                 <Text style={styles.info}>{doctorinfo.expertise}</Text>
                 <Text style={styles.description}>{doctorinfo.user.bio}</Text>
+                <View style={{alignItems:'center'}}>
+          <Stars
+            half={true}
+            default={2.5}
+            update={(val)=>{this.setState({stars: val})}}
+            spacing={4}
+            starSize={40}
+            count={5}
+            fullStar={require('./starFilled.png')}
+            emptyStar={require('./starEmpty.png')}
+            halfStar={require('./starHalf.png')}/>
+        </View>
                </View>
           </View>
           <View style = {{flexDirection :'row',margin : 10}}>
@@ -245,6 +314,7 @@ export default class Profile extends Component {
             )
             }
           </ScrollView>
+          
           </View>
       </ScrollView>
     );
