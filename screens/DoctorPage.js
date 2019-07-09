@@ -207,8 +207,7 @@ export default class Profile extends Component {
       mode:"cors",
       method: 'POST',
       body:JSON.stringify({
-        dcotor : "ب967-22398",
-        //  docdata.medical_system_number,
+        doctor : docdata.medical_system_number,
         patient : this.state.patient.social_number,
         rate : this.state.stars,
        
@@ -239,8 +238,8 @@ export default class Profile extends Component {
           
             <View style={styles.header}>
             <TouchableOpacity style={styles.headerBackButtonView}
-             onPress = {() => this.props.navigation.navigate('Home')}
-            // onPress ={() => this.Rate()}
+            //  onPress = {() => this.props.navigation.navigate('Home')}
+            onPress ={() => this.Rate()}
              >
               <Image 
                 source={backIcon} 
