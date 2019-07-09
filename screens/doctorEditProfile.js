@@ -28,22 +28,8 @@ export default class SignupVriew extends Component {
     PostCode : "",
     Email : "",
     Province : "",
-    WorkStart : "",
-    WorkFinish : "",
-    VisitDuring : "",
-    checked : false,
-    checked1 : false,
-    checked2 : false,
-    checked3 : false,
-    checked4 : false,
-    checked5 : false,
-    checked6 : false,
-    showHour : false,
   }
-  WorkingHour = () =>{
-    this.setState({showHour : true})
-  }
-
+  
   ClinicAdd = async () =>{
     const url = "https://nedabackend.pythonanywhere.com/clinics/";
     const DoctorToken = JSON.parse(this.state.UserToken["_bodyInit"]).token
@@ -76,110 +62,7 @@ export default class SignupVriew extends Component {
         this.props.navigation.navigate('Home',{response})
     }
   }
-  ShowTimes = () =>{
-    const{workfinish,workstart,visitduring} = this.state
-    return(
-      <View style={{ flexDirection: 'column'}}>
-            <View style={{ flexDirection: 'row' }}>
-              <CheckBox
-                checkedIcon='dot-circle-o'
-                uncheckedIcon='circle-o'
-                checked={this.state.checked}
-                onPress={() => this.setState({ checked: !this.state.checked })}
-              />
-              <Text style={{marginTop: 15}}>شنبه</Text>
-              <CheckBox
-                checkedIcon='dot-circle-o'
-                uncheckedIcon='circle-o'
-                checked={this.state.checked1}
-                onPress={() => this.setState({ checked1: !this.state.checked1 })}
-              />
-              <Text style={{marginTop: 15}}>یک شنبه</Text>
-              <CheckBox
-                checkedIcon='dot-circle-o'
-                uncheckedIcon='circle-o'
-                checked={this.state.checked2}
-                onPress={() => this.setState({ checked2: !this.state.checked2 })}
-              />
-              <Text style={{marginTop: 15}}>دو شنبه</Text>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <CheckBox
-                checkedIcon='dot-circle-o'
-                uncheckedIcon='circle-o'
-                checked={this.state.checked3}
-                onPress={() => this.setState({ checked3: !this.state.checked3 })}
-              />
-              <Text style={{marginTop: 15}}>سه شنبه</Text>
-              <CheckBox
-                checkedIcon='dot-circle-o'
-                uncheckedIcon='circle-o'
-                checked={this.state.checked4}
-                onPress={() => this.setState({ checked4: !this.state.checked4 })}
-              />
-              <Text style={{marginTop: 15}}>چهار شنبه</Text>
-              <CheckBox
-                checkedIcon='dot-circle-o'
-                uncheckedIcon='circle-o'
-                checked={this.state.checked5}
-                onPress={() => this.setState({ checked5: !this.state.checked5 })}
-              />
-              <Text style={{marginTop: 15}}>پنج شنبه</Text>
-              <CheckBox
-                checkedIcon='dot-circle-o'
-                uncheckedIcon='circle-o'
-                checked={this.state.checked6}
-                onPress={() => this.setState({ checked6: !this.state.checked6 })}
-              />
-              <Text style={{marginTop: 15}}>جمعه</Text>
-            </View>
-            <View style = {styles.inputcontain}>
-              <TextInput
-                  style={[styles.input, styles.BlueFont]}
-                  placeholder="ساعت شروع کار"
-                  placeholderTextColor="#D8D8D8"
-                  alignItems="center"
-                  underlineColorAndroid='transparent' 
-                  marginTop = '5%'
-                  // marginLeft = '10%'
-                  value={workstart}
-                  onChangeText = {(workstart) => this.setState({WorkStart : workstart})}
-                />
-                <TextInput
-                  style={[styles.input, styles.BlueFont]}
-                  placeholder="ساعت پایان کار"
-                  placeholderTextColor="#D8D8D8"
-                  alignItems="center"
-                  underlineColorAndroid='transparent' 
-                  marginTop = '5%'
-                  // marginLeft = '70%'
-                  value={workfinish}
-                  onChangeText = {(workfinish) => this.setState({WorkFinish : workfinish})}
-                />
-            </View>
-            <View style={styles.inputContainer}>
-                <TextInput
-                  style={[styles.input, styles.BlueFont]}
-                  placeholder="مدت زمان تقریبی ویزیت هر بیمار"
-                  placeholderTextColor="#D8D8D8"
-                  alignItems="center"
-                  underlineColorAndroid='transparent' 
-                  marginTop = '5%'
-                  value={visitduring}
-                  onChangeText = {(visitduring) => this.setState({VisitDuring : visitduring})}
-                />
-              </View>
-              <View >
-                <TouchableOpacity activeOpacity={.5} opacity={10000}
-                onPress={() => this.ClinicAdd()} 
-                style={styles.button}
-                >
-                  <Text style={styles.buttonText} >ثبت</Text>
-                </TouchableOpacity>
-              </View>
-          </View>
-    );
-  }
+  
 
 //   HospitalSignUpHandler =async () =>{
 // const url = "https://nedabackend.pythonanywhere.com/users/";
@@ -295,14 +178,11 @@ export default class SignupVriew extends Component {
               </View>  
               <View >
                 <TouchableOpacity activeOpacity={.5} opacity={10000}
-                onPress={() => this.WorkingHour()} 
+                onPress={() => this.ClinicAdd()} 
                 style={styles.button}
                 >
-                  <Text style={styles.buttonText} >اضافه کردن زمان کاری</Text>
+                  <Text style={styles.buttonText} >اضافه کردن مطب</Text>
                 </TouchableOpacity>
-              </View>
-              <View>
-                {this.state.showHour ?  this.ShowTimes() : null}
               </View>
             </View>
           </ScrollView>
