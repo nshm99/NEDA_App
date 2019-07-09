@@ -59,6 +59,32 @@ class Detail extends React.Component{
       console.log(error)
     }
   }
+  cancel = async ()=>{
+    const url = this.props.Doc.url
+      const patientToken = JSON.parse(this.props.UserToken["_bodyInit"]).token
+      console.log("\n")
+      console.log("____________________________")
+      console.log(patientToken)
+      const options ={
+      mode:'cors',
+      method:'PUT',
+      body:JSON.stringify({
+        has_reserved : false,
+      }),
+      headers : {
+        "Content-type": "application/json",
+        "Authorization" : "Token " + patientToken
+      }
+    }
+    let response = null
+    try{
+    response = await fetch(url,options)
+    
+    }
+    catch(error){
+      console.log(error)
+    } 
+  }
   render(){
     let splitedTime = this.props.Doc.date_time.split("T")
     return(
@@ -89,11 +115,14 @@ class Detail extends React.Component{
                   <Icon style={styles.angle} name="angle-double-left" size={50} color="rgba(255, 255, 255, 0.8)" />
                 </Text>
               </View>
-              <TouchableOpacity style = {styles.cnacel}> 
+              <TouchableOpacity 
+              style = {styles.cnacel}
+              onPress = {() => this.cancel()}> 
               <Image 
                 source={cross} 
                 style ={{width:50,height:50}}
                 resizeMode="contain"
+                
               />
               </TouchableOpacity>
             </View>
@@ -119,8 +148,8 @@ class ShowDetail extends React.Component{
     };
   }
   componentWillMount = async() =>{
-    // const url = "https://nedabackend.pythonanywhere.com/appointment_times/?date_time=&doctor="+this.props.Doctor.medical_system_number+"&patient=&clinic=&hospital="
-    const url = "https://nedabackend.pythonanywhere.com/appointment_times/?date_time=&doctor="+"ب967-22398"+"&patient=&clinic=&hospital="
+    const url = "https://nedabackend.pythonanywhere.com/appointment_times/?date_time=&doctor="+this.props.Doctor.medical_system_number+"&patient=&clinic=&hospital="
+    // const url = "https://nedabackend.pythonanywhere.com/appointment_times/?date_time=&doctor="+"ب967-22398"+"&patient=&clinic=&hospital="
 const options = {
           mode : 'cors',
           method :'GET',
@@ -147,7 +176,7 @@ const options = {
             this.state.time.map((item) =>
               item.has_reserved?(
                 <View>
-                  <Detail Doc = {item}/>
+                  <Detail Doc = {item} UserToken ={this.props.UserToken}/>
                 </View>
               ):null
             )
@@ -260,10 +289,29 @@ class Home extends React.Component {
               <TouchableOpacity
                   style={styles.searchBox}
                   placeholderTextColor='gray'
+                  onPress={() => this.props.navigation.navigate('doctorEditCharacteristics',{param1 : this.state.UserToken})}
+                >
+                  <Text>
+                    ویرایش پروفایل
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.searchBox}
+                  placeholderTextColor='gray'
                   onPress={() => this.props.navigation.navigate('DoctorEditProfile',{param1 : this.state.UserToken})}
                 >
                   <Text>
-                    Edit
+                    اضافه کردن مطب
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.searchBox}
+                  placeholderTextColor='gray'
+                  onPress={() => this.props.navigation.navigate('DoctorworkingHoire',
+                  {param1 : this.state.UserToken,param2 : this.state.doctor})}
+                >
+                  <Text>
+                    اضافه کردن زمان کاری
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -277,7 +325,7 @@ class Home extends React.Component {
                  <ScrollView>
                    {
                      <View>
-                        <ShowDetail Doctor ={this.state.doctor[0]}/>
+                        <ShowDetail Doctor ={this.state.doctor[0]} UserToken = {this.state.UserToken}/>
                      </View>
                    }
                  </ScrollView>
