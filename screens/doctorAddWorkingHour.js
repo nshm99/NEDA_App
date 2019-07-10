@@ -135,13 +135,13 @@ export default class SignupVriew extends Component {
             {
                 this.state.Clinics.length !==0 ?
                 ( 
-                  this.state.Clinics.map((item, index) =>{
+                  this.state.Clinics.map((item) =>{
                     return ( 
-                      <TouchableOpacity activeOpacity={.5} opacity={10000}
+                      <TouchableOpacity activeOpacity={.5} opacity={10000} style={styles.clinicbutton}
+                      key ={item.id}
                       onPress={() => this.setState({IsPressed : true, clinicID:item.id})} 
-                      style={styles.submitbutton}
                       >
-                        <Text style={styles.submitbuttonText} >{item.name}</Text>
+                        <Text style={styles.submitbuttonText}>{item.name}</Text>
                       </TouchableOpacity>
                     )
                   }
@@ -152,7 +152,7 @@ export default class SignupVriew extends Component {
               this.state.IsPressed ?(
                 <View >
             <View style = {{flexDirection : "row", marginLeft:"80%"} }>
-            <Text style={{marginTop: 15}}>شنبه</Text>
+            <Text style={{marginTop: 15,textAlign:'center',justifyContent:'center',alignItems:'center'}}>شنبه</Text>
             <CheckBox
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
@@ -163,57 +163,60 @@ export default class SignupVriew extends Component {
             {
               this.state.checked?(
                 <View>
-                <View style = {styles.inputcontain}>
+                <View>
                 <TextInput
-                    style={[styles.input, styles.BlueFont]}
+                    style={[styles.workinput, styles.BlueFont]}
                     placeholder="ساعت شروع کار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '10%'
+                    marginLeft = '30%'
                     value={workstart}
                     onChangeText = {(workstart) => this.setState({WorkStart : workstart})}
                   />
-                  <TextInput
+                <TextInput
                     style={[styles.input, styles.BlueFont]}
                     placeholder="هزینه ویزیت"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '10%'
-                    value={price}
-                    onChangeText = {(price) => this.setState({price : price})}
-                  />
-                  <TextInput
+                    marginRight = '-22%'
+                    value={price ? String(price) :null}
+                    onChangeText = {(price) => {
+                      this.setState({price : price})
+                    }}
+                />
+                <TextInput
                     style={[styles.input, styles.BlueFont]}
                     placeholder="ساعت پایان کار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '70%'
+                    marginRight = '-20%'
                     value={workfinish}
                     onChangeText = {(workfinish) => this.setState({WorkFinish : workfinish})}
-                  />
+                />
               </View>
               <View style={styles.inputContainer}>
-                  <TextInput
+                <TextInput
                     style={[styles.input, styles.BlueFont]}
                     placeholder="مدت زمان تقریبی ویزیت هر بیمار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
                     underlineColorAndroid='transparent' 
                     marginTop = '5%'
+                    marginRight = '-20%'
                     value={visitduring}
                     onChangeText = {(visitduring) => this.setState({VisitDuring : visitduring})}
-                  />
+                />
                 </View>
                 <View >
               <TouchableOpacity activeOpacity={.5} opacity={10000}
               onPress={() => this.WorkingHour()} 
-              style={styles.submitbutton}
+              style={styles.inputcontain}
               >
                 <Text style={styles.submitbuttonText} >ثبت</Text>
               </TouchableOpacity>
@@ -234,38 +237,39 @@ export default class SignupVriew extends Component {
             {
               this.state.checked1?(
                 <View>
-                <View style = {styles.inputcontain}>
+                <View>
                 <TextInput
-                    style={[styles.input, styles.BlueFont]}
+                    style={[styles.workinput, styles.BlueFont]}
                     placeholder="ساعت شروع کار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '10%'
+                    marginLeft = '30%'
                     value={workstart}
                     onChangeText = {(workstart) => this.setState({WorkStart : workstart})}
                   />
-                  
                   <TextInput
                     style={[styles.input, styles.BlueFont]}
                     placeholder="هزینه ویزیت"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '10%'
-                    value={price}
-                    onChangeText = {(price) => this.setState({price : price})}
+                    marginRight = '-22%'
+                    value={price ? String(price) :null}
+                    onChangeText = {(price) => {
+                      this.setState({price : price})
+                    }}
                   />
                   <TextInput
                     style={[styles.input, styles.BlueFont]}
                     placeholder="ساعت پایان کار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '70%'
+                    marginRight = '-20%'
                     value={workfinish}
                     onChangeText = {(workfinish) => this.setState({WorkFinish : workfinish})}
                   />
@@ -278,6 +282,7 @@ export default class SignupVriew extends Component {
                     alignItems="center"
                     underlineColorAndroid='transparent' 
                     marginTop = '5%'
+                    marginRight = '-20%'
                     value={visitduring}
                     onChangeText = {(visitduring) => this.setState({VisitDuring : visitduring})}
                   />
@@ -285,7 +290,7 @@ export default class SignupVriew extends Component {
                 <View >
               <TouchableOpacity activeOpacity={.5} opacity={10000}
               onPress={() => this.WorkingHour()} 
-              style={styles.submitbutton}
+              style={styles.inputcontain}
               >
                 <Text style={styles.submitbuttonText} >ثبت</Text>
               </TouchableOpacity>
@@ -305,38 +310,39 @@ export default class SignupVriew extends Component {
             {
               this.state.checked2?(
                 <View>
-                <View style = {styles.inputcontain}>
+                <View>
                 <TextInput
-                    style={[styles.input, styles.BlueFont]}
+                    style={[styles.workinput, styles.BlueFont]}
                     placeholder="ساعت شروع کار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '10%'
+                    marginLeft = '30%'
                     value={workstart}
                     onChangeText = {(workstart) => this.setState({WorkStart : workstart})}
                   />
-                  
                   <TextInput
                     style={[styles.input, styles.BlueFont]}
                     placeholder="هزینه ویزیت"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '10%'
-                    value={price}
-                    onChangeText = {(price) => this.setState({price : price})}
+                    marginRight = '-22%'
+                    value={price ? String(price) :null}
+                    onChangeText = {(price) => {
+                      this.setState({price : price})
+                    }}
                   />
                   <TextInput
                     style={[styles.input, styles.BlueFont]}
                     placeholder="ساعت پایان کار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '70%'
+                    marginRight = '-20%'
                     value={workfinish}
                     onChangeText = {(workfinish) => this.setState({WorkFinish : workfinish})}
                   />
@@ -349,6 +355,7 @@ export default class SignupVriew extends Component {
                     alignItems="center"
                     underlineColorAndroid='transparent' 
                     marginTop = '5%'
+                    marginRight = '-20%'
                     value={visitduring}
                     onChangeText = {(visitduring) => this.setState({VisitDuring : visitduring})}
                   />
@@ -356,7 +363,7 @@ export default class SignupVriew extends Component {
                 <View >
               <TouchableOpacity activeOpacity={.5} opacity={10000}
               onPress={() => this.WorkingHour()} 
-              style={styles.submitbutton}
+              style={styles.inputcontain}
               >
                 <Text style={styles.submitbuttonText} >ثبت</Text>
               </TouchableOpacity>
@@ -370,44 +377,48 @@ export default class SignupVriew extends Component {
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
               checked={this.state.checked3}
-              onPress={() => this.setState({ checked3: !this.state.checked3 ,day :"سه شنبه"})}
+              onChangeText = {(price) => {
+                price = parseint(price)
+                this.setState({price : price})
+              }}
               />
             </View>
             {
               this.state.checked3?(
                 <View>
-                <View style = {styles.inputcontain}>
+                <View>
                 <TextInput
-                    style={[styles.input, styles.BlueFont]}
+                    style={[styles.workinput, styles.BlueFont]}
                     placeholder="ساعت شروع کار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '10%'
+                    marginLeft = '30%'
                     value={workstart}
                     onChangeText = {(workstart) => this.setState({WorkStart : workstart})}
                   />
-                  
                   <TextInput
                     style={[styles.input, styles.BlueFont]}
                     placeholder="هزینه ویزیت"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '10%'
-                    value={price}
-                    onChangeText = {(price) => this.setState({price : price})}
+                    marginRight = '-22%'
+                    value={price ? String(price) :null}
+                    onChangeText = {(price) => {
+                      this.setState({price : price})
+                    }}
                   />
                   <TextInput
                     style={[styles.input, styles.BlueFont]}
                     placeholder="ساعت پایان کار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '70%'
+                    marginRight = '-20%'
                     value={workfinish}
                     onChangeText = {(workfinish) => this.setState({WorkFinish : workfinish})}
                   />
@@ -420,6 +431,7 @@ export default class SignupVriew extends Component {
                     alignItems="center"
                     underlineColorAndroid='transparent' 
                     marginTop = '5%'
+                    marginRight = '-20%'
                     value={visitduring}
                     onChangeText = {(visitduring) => this.setState({VisitDuring : visitduring})}
                   />
@@ -427,7 +439,7 @@ export default class SignupVriew extends Component {
                 <View >
               <TouchableOpacity activeOpacity={.5} opacity={10000}
               onPress={() => this.WorkingHour()} 
-              style={styles.submitbutton}
+              style={styles.inputcontain}
               >
                 <Text style={styles.submitbuttonText} >ثبت</Text>
               </TouchableOpacity>
@@ -447,38 +459,39 @@ export default class SignupVriew extends Component {
             {
               this.state.checked4?(
                 <View>
-                <View style = {styles.inputcontain}>
+                <View>
                 <TextInput
-                    style={[styles.input, styles.BlueFont]}
+                    style={[styles.workinput, styles.BlueFont]}
                     placeholder="ساعت شروع کار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '10%'
+                    marginLeft = '30%'
                     value={workstart}
                     onChangeText = {(workstart) => this.setState({WorkStart : workstart})}
                   />
-                  
                   <TextInput
                     style={[styles.input, styles.BlueFont]}
                     placeholder="هزینه ویزیت"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '10%'
-                    value={price}
-                    onChangeText = {(price) => this.setState({price : price})}
+                    marginRight = '-22%'
+                    value={price ? String(price) :null}
+                    onChangeText = {(price) => {
+                      this.setState({price : price})
+                    }}
                   />
                   <TextInput
                     style={[styles.input, styles.BlueFont]}
                     placeholder="ساعت پایان کار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '70%'
+                    marginRight = '-20%'
                     value={workfinish}
                     onChangeText = {(workfinish) => this.setState({WorkFinish : workfinish})}
                   />
@@ -491,6 +504,7 @@ export default class SignupVriew extends Component {
                     alignItems="center"
                     underlineColorAndroid='transparent' 
                     marginTop = '5%'
+                    marginRight = '-20%'
                     value={visitduring}
                     onChangeText = {(visitduring) => this.setState({VisitDuring : visitduring})}
                   />
@@ -498,7 +512,7 @@ export default class SignupVriew extends Component {
                 <View >
               <TouchableOpacity activeOpacity={.5} opacity={10000}
               onPress={() => this.WorkingHour()} 
-              style={styles.submitbutton}
+              style={styles.inputcontain}
               >
                 <Text style={styles.submitbuttonText} >ثبت</Text>
               </TouchableOpacity>
@@ -512,44 +526,48 @@ export default class SignupVriew extends Component {
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
               checked={this.state.checked5}
-              onPress={() => this.setState({ checked5: !this.state.checked5 ,day :"پنج شنبه"})}
+              onChangeText = {(price) => {
+                price = parseint(price)
+                this.setState({price : price})
+              }}
               />
             </View>
             {
               this.state.checked5?(
                 <View>
-                <View style = {styles.inputcontain}>
+                <View>
                 <TextInput
-                    style={[styles.input, styles.BlueFont]}
+                    style={[styles.workinput, styles.BlueFont]}
                     placeholder="ساعت شروع کار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '10%'
+                    marginLeft = '30%'
                     value={workstart}
                     onChangeText = {(workstart) => this.setState({WorkStart : workstart})}
                   />
-                  
                   <TextInput
                     style={[styles.input, styles.BlueFont]}
                     placeholder="هزینه ویزیت"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '10%'
-                    value={price}
-                    onChangeText = {(price) => this.setState({price : price})}
+                    marginRight = '-22%'
+                    value={price ? String(price) :null}
+                    onChangeText = {(price) => {
+                      this.setState({price : price})
+                    }}
                   />
                   <TextInput
                     style={[styles.input, styles.BlueFont]}
                     placeholder="ساعت پایان کار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '70%'
+                    marginRight = '-20%'
                     value={workfinish}
                     onChangeText = {(workfinish) => this.setState({WorkFinish : workfinish})}
                   />
@@ -560,8 +578,9 @@ export default class SignupVriew extends Component {
                     placeholder="مدت زمان تقریبی ویزیت هر بیمار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
+                    marginRight = '-20%'
                     value={visitduring}
                     onChangeText = {(visitduring) => this.setState({VisitDuring : visitduring})}
                   />
@@ -569,7 +588,7 @@ export default class SignupVriew extends Component {
                 <View >
               <TouchableOpacity activeOpacity={.5} opacity={10000}
               onPress={() => this.WorkingHour()} 
-              style={styles.submitbutton}
+              style={styles.inputcontain}
               >
                 <Text style={styles.submitbuttonText} >ثبت</Text>
               </TouchableOpacity>
@@ -589,38 +608,39 @@ export default class SignupVriew extends Component {
             {
               this.state.checked6?(
                 <View>
-                <View style = {styles.inputcontain}>
+                <View>
                 <TextInput
-                    style={[styles.input, styles.BlueFont]}
+                    style={[styles.workinput, styles.BlueFont]}
                     placeholder="ساعت شروع کار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '10%'
+                    marginLeft = '30%'
                     value={workstart}
                     onChangeText = {(workstart) => this.setState({WorkStart : workstart})}
                   />
-                  
                   <TextInput
                     style={[styles.input, styles.BlueFont]}
                     placeholder="هزینه ویزیت"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '10%'
-                    value={price}
-                    onChangeText = {(price) => this.setState({price : price})}
+                    marginRight = '-22%'
+                    value={price ? String(price) :null}
+                    onChangeText = {(price) => {
+                      this.setState({price : price})
+                    }}
                   />
                   <TextInput
                     style={[styles.input, styles.BlueFont]}
                     placeholder="ساعت پایان کار"
                     placeholderTextColor="#D8D8D8"
                     alignItems="center"
-                    underlineColorAndroid='transparent' 
+                    // underlineColorAndroid='transparent' 
                     marginTop = '5%'
-                    // marginLeft = '70%'
+                    marginRight = '-20%'
                     value={workfinish}
                     onChangeText = {(workfinish) => this.setState({WorkFinish : workfinish})}
                   />
@@ -633,6 +653,7 @@ export default class SignupVriew extends Component {
                     alignItems="center"
                     underlineColorAndroid='transparent' 
                     marginTop = '5%'
+                    marginRight = '-20%'
                     value={visitduring}
                     onChangeText = {(visitduring) => this.setState({VisitDuring : visitduring})}
                   />
@@ -640,7 +661,7 @@ export default class SignupVriew extends Component {
                 <View >
               <TouchableOpacity activeOpacity={.5} opacity={10000}
               onPress={() => this.WorkingHour()} 
-              style={styles.submitbutton}
+              style={styles.inputcontain}
               >
                 <Text style={styles.submitbuttonText} >ثبت</Text>
               </TouchableOpacity>
