@@ -40,7 +40,7 @@ export default StyleSheet.create({
      },
      inputContainer: {
        borderWidth: 1,
-       borderBottomColor: '#baffff',
+      //  borderBottomColor: '#baffff',
        borderColor: 'transparent',
        flexDirection: 'row',
        height: 75,
@@ -52,7 +52,8 @@ export default StyleSheet.create({
        fontSize: 20,
        textAlign : 'center',
         alignItems : 'center',
-        
+        // paddingLeft:'2%',
+        // paddingRight : '2%'
      },
      BlueFont:{
        color : '#6ec6ff'
@@ -90,6 +91,37 @@ export default StyleSheet.create({
       width :"20%",
       borderRadius : 10,
 
+     },
+     inputcontain:{
+      backgroundColor: "#2196f3",
+      paddingVertical: 20,
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: 30,
+      marginLeft :"35%",
+      marginRight :"5%",
+      width :"40%",
+      borderRadius : 10,
+     },
+     workinput : {
+       flex: 1,
+      // marginLeft:'20%',
+       fontSize: 20,
+       textAlign : 'center',
+        alignItems : 'center',
+        width: '50%'
+     },
+     clinicbutton : {
+      backgroundColor: "#2196f3",
+      paddingVertical: 40,
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: 30,
+      marginLeft :"35%",
+      marginBottom :"5%",
+      width :"43%",
+      height : "8%",
+      borderRadius : 10,
      },
      submitbuttonText: {
       color: "#FFF",
