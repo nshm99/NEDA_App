@@ -9,12 +9,40 @@ export default StyleSheet.create({
     },
     searchBarContainer: {
       padding: 50,
-      // paddingTop: 10,
       height: 40,
       width: 375,
       marginBottom: 40,
       alignItems: 'center',
-      justifyContent:'center'
+      justifyContent:'center',
+      // marginTop:20
+    },
+    profileeditbutton :{
+      // padding: 50,
+      // paddingTop:10,
+      height: 40,
+      width: 375,
+      alignItems: 'center',
+      justifyContent:'center',
+      marginTop:'35%',
+    },
+    profileedit : {
+      marginBottom:'5%',
+      height: 40,
+      borderColor: 'gray',
+      borderWidth: 1,
+      borderRadius: 5,
+      textAlign: 'center',
+      // marginRight :'5%',
+      padding :'2%',
+      marginLeft : "15%",
+      // fontFamily: 'Arial',
+      color: 'white',
+      backgroundColor: 'blue',
+      alignItems :'center',
+      justifyContent :'space-between',
+      textAlign :'center',
+      width :"50%",
+
     },
     searchBox: {
       height: 40,
@@ -148,6 +176,10 @@ export default StyleSheet.create({
       alignSelf: 'center',
       marginTop:'12%'
       // fontFamily: 'Arial'
+    },
+    cnacel:{
+      width:50,
+        height:50
     },
     avatar: {
       width: 100,
